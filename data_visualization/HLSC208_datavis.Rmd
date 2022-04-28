@@ -12,11 +12,28 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Goals
+
+2.1 What biological information is in a dot plot?
+2.2 What can you learn from a boxplot?
+
 # Overview
 
 Visualization is one of the most important tools in biology and scientific research. Visualization and plotting is essential for two main components of scientific research: 1) exploratory data analysis, and 2) communicating research results/findings. 
 
-Most often, the end goal of scientific research is to publish research papers in scientific journals which consist of several figures describing the outcome of the experiemnts and research completed. 
+Exploratory data analysis is one of the first key steps in quantitative biology, bioinformatics, or any time you have data to evaluate really! Scientists always aim to understand intricacies of the data they have collected to determine trends in the data, including ones that may not be expected. The ultimate goal of any data science/exploratory data analysis is to determine what your data is trying to tell you. 
+
+
+
+
+
+
+
+
+BME 5.1: What biological information is in a dot plot? (sequence comparison)
+BME 11.1: Does it matter how you present your data? (data visualization)
+BME 17.3 What can you learn from a boxplot? (plots)
+
 
 
 # Installing Needed Packages
