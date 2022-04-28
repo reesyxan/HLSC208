@@ -1,0 +1,182 @@
+---
+title: "Introduction to R Programming"
+author: "Theresa Alexander"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+- The purpose of this lab is to learn the basics of R programming. R is a programming language capable of helping us modify, visualize and understand data. 
+
+- R was developed as a statistical programming language. It's focus therefore is geared towards things like statistical analysis, data visualization, modeling and machine learning, etc.
+
+- What makes R especially attractive for Biology, Bioinformatics and Genomics applications is the large community of biologists that have adopted R, leading to a wide range of useful and specialized software for bioinformatics, genomics, and computational biology applications.
+
+# The R development environment
+
+- If you remember from the powerpoint, there were two ways discussed to use the R programming language. One is to open an R console in a programming terminal (the bare bones way of interfacing with R). The other is to use an integrated development environment (IDE, which is a dashboard of sorts) called RStudio to help manage R scripts, workflows, and files. We will be using Rstudio to learn R and interface with the programming language. 
+
+- To begin, open the Launchpad (lower left corner on tool bar) and type "RStudio" to launch RStudio.
+
+- Orient yourself with the layout of RStudio a bit. Notice the RStudio pane is divided into 4 main quadrants:
+    Upper Left: Pane for opening/starting R scripts (a file which stores R code). These scripts will have the suffix .R or .Rmd. 
+                - A .R file strictly has code which you would put into an R console to run.   
+                - A .Rmd file (R markdown file) is formatted a little bit differently and contains code "chunks" which you can run directly in the file. 
+    Lower Left: This quadrant contains the R console (the pane which is actually running your code in R), a tab called "Terminal", which we will not use in this class, but this tab interfaces with the filesystem on your computer, and a tab called "Jobs" (which again, we will not use in this class). 
+
+- You can create new R scripts via `File` -> `New File` -> `R script`
+
+
+- **In the future, we will be using R scripts (meaning a file you will save your R code in) ** Today is an exception since we are learning R with the `swirl` package. For today, we will be executing code in the CONSOLE in the lower left quadrant in Rstudio.
+
+
+The RStudio Open Source software project has curated a series of "cheat sheets" to help R learner's consolidate a lot of information on a few pages. Here is their cheat sheet for the RStudio IDE (with information about what all the buttons and panes do in the RStudio IDE). Throughout this course, we will provide you with cheat sheets along the way for you to reference if you have additional questions or want to explore other things we do not touch on in the class.
+
+https://ucdavis-bioinformatics-training.github.io/Oct2017-ILRI-Workshop/Cheat_Sheets/rstudio-IDE-cheatsheet.pdf
+
+# Installing R Packages
+
+- Software libraries in R are often referred to as "Packages". These are similar to "modules" in Python or "libraries" in C and other languages. Packages provide a way to provide additional functionality, usually collections of functions and classes, which go beyond the base R language capabilities.
+
+- Packages/Libraries (these terms are interchangeable) are usually targeted as solving some particular task -- e.g. providing improved plotting functionality (ggplot2) or bioinformatic sequence manipulation (Biostrings). In the powerpoint, we talked about 2 main places (we call repositories) which store all these different packages for us to install: CRAN (for general R packages) and Bioconductor (for bioinformatic/ computational biology- specific packages)
+
+- These packages are just like a new piece of software for your computer. Just like when you install new software like Word or Notepad or Adobe Acrobat, you only need to install these packages once (to store them on your computer). 
+
+- R makes it easy to install new software, using the `install.packages()` command.For example, to install the `dplyr` package:
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+```
+
+- Once they are installed, you can "open" them in R by using the function library(). Here's an example of how you would "open" or "load" a library which is already installed on your computer:
+
+```{r, eval=FALSE}
+library("dplyr")
+```
+
+Today we are going to use a package called "Swirl", which is a piece of software which was made to help people learn the R language. It is the R equivalent of something like Duolingo, but we're learning a programming language and not a spoken language!
+
+# Swirl
+
+- For the remainder of the this exercise, we are going to be using an interactive tool for learning R called [swirl](http://swirlstats.com/).
+
+- Usually when you are using a package for the first time on a computer, like mentioned above, you need to install the package. I have already installed this package on our lab server (computer), so we can skip this step. If you wanted to install R/Rstudio on your own computer (first of all, you can come talk to me to help you do that!), but you would need to install Swirl on your own computer using the following code:
+
+
+```{r, eval=FALSE}
+
+## make sure you read the above paragraph. you don't need to run this code in lab. this is just an example of how to install swirl if you wanted to try running R/Rstudio on your own computer.
+
+install.packages("swirl")
+install_course_github("swirldev", "R_Programming_E")
+```
+
+
+- If we have the Swirl software package installed, the next thing to do is "open/load" it so the computer knows what suite of functions you want to use! To do this, run the following code IN THE CONSOLE (bottom left quadrant in Rstudio). 
+
+```{r, eval=FALSE}
+library("swirl")
+```
+
+You should get a message which says the following:
+
+| Hi! Type swirl() when you are ready to begin.
+
+- We want to launch swirl now, so we will use the siwrl function to do that!
+
+
+```{r, eval=FALSE}
+swirl()
+```
+
+- Follow the steps on the screen to get set up. You will be asked which course you want to launch. We want to select 1: R Programming E:
+
+```
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming E
+2: Take me to the swirl course repository!
+
+Selection: 1
+```
+
+- You will be presented with a number of different lesson options. To begin, choose the first lesson, "1: Basic Building Blocks".
+
+```
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+ 1: Basic Building Blocks      2: Workspace and Files     
+ 3: Sequences of Numbers       4: Vectors                 
+ 5: Missing Values             6: Subsetting Vectors      
+ 7: Matrices and Data Frames   8: Logic                   
+ 9: Functions                 10: lapply and sapply       
+11: vapply and tapply         12: Looking at Data         
+13: Simulation                14: Dates and Times         
+15: Base Graphics             
+
+Selection: 1
+```
+
+- Follow the instructions on the screen to work your way through the lesson. Once you have completed the lesson you will have the option to return main menu and will have the option to choose a new lesson to work on.
+
+# Lab exercise questions
+
+- For this exercise, your goal will be to work through some of the lessons in the swirl R programming course. Specifically, you should complete the following lessons:
+
+```
+1. Basic Building Blocks
+3. Sequences of Numbers
+4. Vectors
+5. Missing Values
+6. Subsetting Vectors
+7. Matrices and Data Frames
+8. Logic
+12. Looking at data
+15. Base Graphics
+```
+
+**Important **
+
+- Each time you complete one of the lessons, record the solution of the last question you answered. So for example, if the last thing you typed before completing the fourth lesson above ("Vectors") was `x = rep(6, 3)`, then you would just write it down as the answer for Q4. 
+
+
+- It is a little complicated to save your progress on swirl in the middle of a lesson. If you can't finish all the lessons by the end of the class, I would suggest at least make it through the end of your current lesson and record the last answer. You can then finish the rest of the lessons on the RStudio server outside of class by FIRST connecting to the UMD vpn if you're off campus, and then going to the web address: https://hlsc-rstudio.umd.edu.
+
+
+# Swirl Extras
+
+- There are a number of other courses that have been written in the swirl framework which can be accessed from the [swirl course repository](https://github.com/swirldev/swirl_courses#swirl-courses).
+
+- The courses cover a range of topics including statistics, bioinformatics, and data visualization.
+
+- Some of the courses are associated with Coursera courses and include video lectures that can be downloaded separately.
+
+- Today we are just going to stick to the basics.
+
+**swirl cheatsheet**
+
+Here are some functions swirl provides to allow you to pause, etc. during a lesson:
+
+```
+| When you are at the R prompt (>):
+| -- Typing skip() allows you to skip the current question.
+| -- Typing play() lets you experiment with R on your own; swirl will ignore what you do...
+| -- UNTIL you type nxt() which will regain swirl's attention.
+| -- Typing bye() causes swirl to exit. Your progress will be saved.
+| -- Typing main() returns you to swirl's main menu.
+| -  Typing info() displays these options again.
+```
+
+
+
+
+

@@ -1,0 +1,186 @@
+---
+title: "Plotting and Data Visualization with ggplot2"
+author: "Theresa Alexander"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+Visualization is one of the most important tools in biology and scientific research. Visualization and plotting is essential for two main components of scientific research: 1) exploratory data analysis, and 2) communicating research results/findings. 
+
+Most often, the end goal of scientific research is to publish research papers in scientific journals which consist of several figures describing the outcome of the experiemnts and research completed. 
+
+
+# Installing Needed Packages
+
+
+
+The cheat sheet for the ggplot2 functions can be found here:
+https://statsandr.com/blog/files/ggplot2-cheatsheet.pdf
+
+
+
+
+# Lab Exercise Questions
+
+
+
+
+
+
+
+###### From the P2P tutorial
+
+
+## Install ggplot2
+
+The ggplot2 package is a system for data visualization. More information can be found [ggplot2 documentation](https://ggplot2.tidyverse.org/)
+First, we need to install the package and call it.
+
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+```
+
+## Load the dataset: iris
+We will use the Iris flower data set to explore data visualization with ggplot2. The Iris flower data set is a multivariate data set widely used for statistical and machine learning analysis. [Iris flower data set wikipedia](https://en.wikipedia.org/wiki/Iris_flower_data_set)
+
+### About Iris
+- The data set contains 50 samples of each of 3 species: Iris setosa, Iris versicolor, and Iris virginica.
+- Each sample was measured for 4 features: the length and width of the sepals and the petals, in centimeters.
+
+```{r iris}
+summary(iris)
+```
+
+```{r}
+head(iris)
+```
+
+## ggplot makes nicer plots
+
+```{r}
+plot(x=iris$Sepal.Length, y=iris$Sepal.Width, 
+     xlab="Sepal Length", ylab="Sepal Width",  main="Sepal Length-Width")
+```
+
+```{r}
+scatter <- ggplot(data=iris, aes(x = Sepal.Length, y = Sepal.Width)) 
+scatter + geom_point(aes(color=Species, shape=Species)) +
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() +theme(plot.background = element_rect(fill = "lightblue"))
+```
+
+
+## ggplot2 basics
+
+To make a graph, we need 3 elements:
+- a data set
+- a coordinate system
+- geoms: visual marks that represent data points, including x, y, size, color, ...
+
+### First, we initiate the graph
+
+```{r , echo=FALSE}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))
+```
+
+### Second, we add a geom layer
+
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point()
+```
+
+### Then we assign different colors and shapes to the data points of different species.
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))
+```
+
+### We label the x and y axis and set a title.
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width")
+```
+
+### We can utilize the built-in themes to change the style of the background and grid
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal()
+```
+
+### We can also customize the theme
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + theme(plot.background = element_rect(fill = "lightblue"))
+```
+
+### Or use other popular themes
+```{r}
+#install.packages("ggthemes") # Install 
+library(ggthemes) # Load
+```
+
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + theme_economist()
+```
+
+
+### We can also pick a different color palette
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_dark() +scale_colour_brewer(palette = "Pastel2")
+```
+
+## ggplot + statistics
+### To aids our eyes in seeing the data trends, ggplot provides a smooth function.
+- [Multiple functions](https://ggplot2.tidyverse.org/reference/geom_smooth.html) can be used for smoothing. Here we fit the data to a linear model.
+- We need to specify that different colors will be used for species-specific smoothing calculation by moving `color=Species` into the ggplot initiation function.
+
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width,color=Species))+geom_point(aes( shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + geom_smooth(method="lm")
+```
+
+### Let's try again with polynomial smoothing
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width,color=Species))+geom_point(aes( shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + geom_smooth(method="loess")
+```
+
+## Facet function helps to generate multiple plots in one figure
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width,color=Species))+geom_point(aes( shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + geom_smooth(method="loess") + facet_grid(Species ~ .)
+```
+
+```{r}
+ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width,color=Species))+geom_point(aes( shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_minimal() + geom_smooth(method="loess") + facet_grid(. ~ Species)
+```
+
+## Last but not least, we should save our figure
+```{r}
+ggsave("plot.png") #saves the latest plot you make
+#or if you have multiple plots and you want to save one of them: use the variable to save it
+plot=ggplot(data=iris,aes(x=Sepal.Length,y=Sepal.Width,color=Species))+geom_point(aes( shape=Species))+
+  xlab("Sepal Length") +  ylab("Sepal Width") +
+  ggtitle("Sepal Length-Width") + theme_bw() + geom_smooth(method="loess") + facet_grid(. ~ Species)
+ggsave("plot.png",plot = plot)
